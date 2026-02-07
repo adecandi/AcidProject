@@ -1,0 +1,364 @@
+body {
+  font-family: monospace;
+  background: #434343;
+  color: rgb(236, 205, 1);
+  /* pad around edges of the page */
+  padding: 20px;
+  --primary-color: #f0a500;
+  --secondary-color: #3d3d3d;
+  --text-color: #e0e0e0;
+  /*Variable for the pixel font*/
+  --font-family: "Lexend Deca", "Courier New", Courier, monospace;
+  font-family: var(--font-family);
+}
+.controls {
+  /* vertical x horizontal margin */
+  margin: 20px 0;
+  border: 2px solid #fafafa;
+  /* how round the corners are */
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+button {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #5a5a5a;
+
+  /* add shadow around box for 3D effect */
+  box-shadow: 0 4px 0 #222;
+  /* smooths click button press animation */
+  transition: all 0.1s ease;
+  position: relative;
+  font-family: var(--font-family);
+}
+
+/* Pressed button CSS */
+button:active,
+button.active {
+  /* move button down 4 pixels for animation */
+  transform: translateY(4px);
+  /* remove shadow to look pressed in */
+  box-shadow: 0 0 0 #222;
+}
+
+#oscilloscope {
+  width: 100%;
+  height: 200px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 2px solid var(--secondary-color);
+  margin-bottom: 20px;
+  /* glow shadow */
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(240, 165, 0, 0.2);
+}
+
+/* Style for the waveform selector */
+select {
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid #5a5a5a;
+  box-shadow: 0 4px 0 #222;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  font-family: var(--font-family);
+}
+
+.wave_button {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-width: 50px;
+}
+
+.wave_button.active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #222;
+  background-color: rgb(236, 213, 1);
+  color: #000;
+}
+
+.synth {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 20px;
+}
+h1,
+h2 {
+  font-weight: 700;
+}
+
+/* force synth h2 to take full top */
+.synth h2 {
+  width: 100%;
+  text-align: left;
+  margin-top: 0;
+}
+
+.waveform_selector {
+  display: flex;
+  flex-direction: column;
+  align-self: left;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  display: block;
+  margin-top: 5px;
+}
+
+/* Step Sequencer Styling for the individual step buttons */
+.step {
+  width: 30px;
+  height: 50px;
+  background: #454545;
+  border: 2px solid #757474;
+  border-radius: 2px;
+  cursor: pointer;
+  box-sizing: border-box;
+  box-shadow: 0 4px 0 #222;
+  transition: all 0.1s ease;
+  margin-bottom: 4px;
+}
+
+.step.active {
+  background: rgb(236, 213, 1);
+  transform: translateY(4px); /* Permanently pressed in */
+  box-shadow: 0 0 0 #222;
+  border-color: #c1c0c0;
+}
+
+/* playhead */
+/* "!important" to override other styles for the border and glow of a step */
+.step.current {
+  border: 2px solid #ffd15e !important;
+  /* glow over playhead */
+  box-shadow: 0 0 5px #fff !important;
+}
+
+.smiley {
+  font-size: 3rem;
+  vertical-align: middle;
+}
+
+h2 {
+  margin-top: 0px;
+  font-size: 1rem;
+}
+
+#sequencer {
+  display: flex;
+  gap: 5px;
+  margin: 20px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* wrapper for step with note labels */
+.step-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.note-label {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: #eee;
+
+  /* choose an icon for cursor overlay on buttons etc */
+  cursor: grab;
+
+  user-select: none;
+  font-family: "Lexend Deca", "Courier New", Courier, monospace;
+}
+
+/* Fader Styling */
+.controls-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Fader label groups */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* helper wrapper to rotate faders */
+.fader-wrapper {
+  height: 120px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#loadSequenceSelect {
+  /* margin-left: 10px; */
+  padding: 10px;
+}
+
+/* reset sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+/* input[type... targets the sliders since it only targets type="range" */
+/* vertical sliders */
+input[type="range"].vertical-fader {
+  width: 120px; /* Physical length */
+  height: 20px; /* Touch area thickness */
+  transform: rotate(-90deg);
+  cursor: pointer;
+}
+
+/* Track Styling */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: #222;
+  border: 1px solid #555;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Fader Caps */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 12px;
+  background: #d0d0d0; /* Light grey cap */
+  border: 1px solid #000;
+  border-radius: 1px;
+  margin-top: -10px; /* Centers thumb on track */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/* effects grid */
+.effects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two columns for effects */
+  gap: 20px; /* gap between boxes */
+  max-width: 800px;
+  margin: 20px auto; /* center the grid */
+}
+
+/* individual effect boxes */
+.Distortion,
+.Waveshaper,
+.delay,
+.Reverb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* Full width of the grid cell */
+  border: 2px solid #757474;
+  border-radius: 8px;
+  padding: 15px;
+  /* background: rgba(255, 255, 255, 0.15); */
+  min-height: 110px;
+  box-sizing: border-box;
+}
+
+.delay {
+  order: 3;
+}
+
+.Reverb {
+  order: 4;
+}
+
+.Distortion {
+  order: 2;
+}
+
+.Waveshaper {
+  order: 1;
+}
+
+/* override centering for controls */
+.controls-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.Distortion .control-group,
+.Waveshaper .control-group {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* Container for the octave buttons and display */
+.octave-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  /* background: rgba(0, 0, 0, 0.2); */
+  padding: 5px 10px;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+/* Style for the + and - buttons */
+.small-btn {
+  padding: 2px;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0; /* Override default button margins */
+  font-family: var(--font-family);
+}
+
+/* The number display for the octaves */
+#octaveDisplay {
+  font-family: monospace;
+  font-size: 1.2rem;
+  min-width: 20px;
+  text-align: center;
+}

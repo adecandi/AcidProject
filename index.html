@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acid Line Generator</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&family=Geo:ital@0;1&family=Jockey+One&family=Lexend+Deca:wght@100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    /> -->
+
+    <!-- Tone.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <!-- Firebase Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase cloud import-->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <!-- Tone.js MIDI Library -->
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/@tonejs/midi"
+    ></script>
+
+    <!-- Audiokeys for keyboard input -->
+    <script src="https://cdn.jsdelivr.net/npm/audiokeys@0.1.1/dist/audiokeys.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Stink <span class="smiley">&#9787;</span></h1>
+    <div class="controls">
+      <button id="playButton">Play</button>
+      <button id="stopButton">Stop</button>
+      <button id="generateButton">Generate</button>
+      <button id="SaveButton">Save Pattern</button>
+      <button id="ExportButton">Export MIDI</button>
+      <select id="loadSequenceSelect">
+        <option value="">Load Sequence</option>
+      </select>
+    </div>
+
+    <div class="controls">
+      <!-- <label for="bpm">BPM:</label> -->
+      BPM:
+      <input type="number" id="bpm" value="132" min="60" max="200" />
+      Style:
+      <select id="genreSelect">
+        <option value="acid">Acid</option>
+        <option value="trance">Trance</option>
+        <!-- <option value="techno">Techno</option> -->
+        <!-- <option value="progressive">Progressive</option> -->
+      </select>
+      Octaves:
+      <input type="number" id="octaveRange" value="3" min="1" max="8" />
+      Key:
+      <select id="keySelect">
+        <option value="0">C</option>
+        <option value="1">C#</option>
+        <option value="2">D</option>
+        <option value="3">D#</option>
+        <option value="4">E</option>
+        <option value="5">F</option>
+        <option value="6">F#</option>
+        <option value="7">G</option>
+        <option value="8">G#</option>
+        <option value="9">A</option>
+        <option value="10">A#</option>
+        <option value="11">B</option>
+      </select>
+      <select id="scaleSelect">
+        <option value="major">Major</option>
+        <option value="minor">Minor</option>
+        <!-- <option value="minorPentatonic">Minor Pentatonic</option> -->
+      </select>
+      <div class="control-item">
+        <label>Octave Shift</label>
+        <div class="octave-controls">
+          <button id="octaveDown" class="octave-btn">-</button>
+          <!-- Display Octave Shift -->
+          <span id="octaveDisplay">0</span>
+          <button id="octaveUp" class="octave-btn">+</button>
+        </div>
+      </div>
+
+      <!-- <label for="patternLength">Pattern Length:</label>
+      <input type="number" id="patternLength" value="16" min="4" max="32" /> -->
+    </div>
+    <canvas id="oscilloscope" width="800" height="200"></canvas>
+    <div id="sequencer" class="sequencer"></div>
+
+    <div class="synth controls">
+      <h2>Synthesizer</h2>
+      <div class="controls-row">
+        <div class="waveform_selector">
+          <button
+            id="waveSaw"
+            class="wave_button active"
+            aria-label="Sawtooth Wave"
+          >
+            <svg
+              width="24"
+              height="16"
+              viewBox="0 0 30 20"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="3"
+            >
+              <path d="M2 18 L14 2 L14 18 L26 2" />
+            </svg>
+          </button>
+          <button id="waveSquare" class="wave_button" aria-label="Square Wave">
+            <svg
+              width="24"
+              height="16"
+              viewBox="0 0 30 20"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="3"
+            >
+              <path d="M2 18 L2 2 L14 2 L14 18 L26 18 L26 2" />
+            </svg>
+          </button>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="cutoff"
+              min="100"
+              max="10000"
+              value="1000"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Cutoff</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="resonance"
+              min="0"
+              max="20"
+              value="1"
+              step=".01"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Res</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="filterEnv"
+              min="0"
+              max="7"
+              value="0"
+              step=".01"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Env</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="spread"
+              min="0"
+              max="40"
+              value="0.5"
+              step=".01"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Spread</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="voices"
+              min="1"
+              max="7"
+              value="1"
+              step="1"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Voices</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="portamento"
+              min="0"
+              max="50"
+              value="0"
+              step=".01"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Glide</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="ampRelease"
+              min="0"
+              max="1"
+              value="0.4"
+              step=".01"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Release</label>
+        </div>
+        <div class="control-group">
+          <div class="fader-wrapper">
+            <input
+              type="range"
+              id="output"
+              min="0"
+              max="1"
+              value="0.7"
+              step=".01"
+              class="vertical-fader"
+            />
+          </div>
+          <label>Output</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="effects grid">
+      <div class="Waveshaper controls">
+        <h2>Waveshaper</h2>
+        <label>Amount</label>
+        <input
+          type="range"
+          id="waveshaperAmount"
+          min="1"
+          max="100"
+          value="1"
+          step="1"
+        />
+      </div>
+
+      <div class="Distortion controls">
+        <h2>Distortion</h2>
+        <label>Amount</label>
+        <input
+          type="range"
+          id="distortionAmount"
+          min="0"
+          max="1"
+          value="0"
+          step=".01"
+        />
+      </div>
+
+      <div class="delay controls">
+        <h2>Delay</h2>
+        <div class="controls-row">
+          <div class="control-group">
+            <div class="fader-wrapper">
+              <input
+                type="range"
+                id="delayTime"
+                min="0"
+                max="1"
+                value="0.5"
+                step=".01"
+                class="vertical-fader"
+              />
+            </div>
+            <label>Time</label>
+          </div>
+          <div class="control-group">
+            <div class="fader-wrapper">
+              <input
+                type="range"
+                id="delayFeedback"
+                min="0"
+                max="0.9"
+                value="0.35"
+                step=".01"
+                class="vertical-fader"
+              />
+            </div>
+            <label>Fdbk</label>
+          </div>
+          <div class="control-group">
+            <div class="fader-wrapper">
+              <input
+                type="range"
+                id="delayWet"
+                min="0"
+                max="1"
+                value="0.3"
+                step=".01"
+                class="vertical-fader"
+              />
+            </div>
+            <label>Mix</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="Reverb controls">
+        <h2>Reverb</h2>
+        <div class="controls-row">
+          <div class="control-group">
+            <div class="fader-wrapper">
+              <input
+                type="range"
+                id="reverbDecay"
+                min="0.1"
+                max="15"
+                value="3"
+                step=".1"
+                class="vertical-fader"
+              />
+            </div>
+            <label>Decay</label>
+          </div>
+          <div class="control-group">
+            <div class="fader-wrapper">
+              <input
+                type="range"
+                id="reverbMix"
+                min="0"
+                max="1"
+                value="0"
+                step=".01"
+                class="vertical-fader"
+              />
+            </div>
+            <label>Mix</label>
+          </div>
+          <div class="control-group">
+            <div class="fader-wrapper">
+              <input
+                type="range"
+                id="reverbFilter"
+                min="200"
+                max="5000"
+                step="10"
+                value="2000"
+                class="vertical-fader"
+              />
+            </div>
+            <label>Tone</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
