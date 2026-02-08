@@ -668,7 +668,8 @@ keys.down(function (note) {
   }
 });
 
-//oscilloscope drawing
+let displayedBuffer = new Float32Array(512).fill(0);
+
 function drawOscilloscope() {
   const canvas = document.getElementById("oscilloscope");
   if (!canvas) return;
@@ -676,46 +677,58 @@ function drawOscilloscope() {
   const width = canvas.width;
   const height = canvas.height;
 
-  //Get waveform data
-  const buffer = waveform.getValue();
-
-  //Clear background
+  // Clear background with a slight trail effect (optional)
+  // Use opacity < 1 to let previous frames fade out slowly
   ctx.fillStyle = "rgba(26, 26, 26, 1)";
   ctx.fillRect(0, 0, width, height);
 
-  //Setup Line Style
+  // 2. Get the REAL (frantic) audio data
+  const currentBuffer = waveform.getValue();
+
+  // 3. Smoothly morph the displayed buffer towards the current buffer
+  //    'lerpFactor' controls the speed.
+  //    0.1 = Very slow/lazy (ghostly)
+  //    0.5 = Snappy but smooth
+  //    0.9 = Almost instant
+  const lerpFactor = 0.15;
+
+  for (let i = 0; i < displayedBuffer.length; i++) {
+    // Basic Lerp formula: current + (target - current) * speed
+    displayedBuffer[i] =
+      displayedBuffer[i] + (currentBuffer[i] - displayedBuffer[i]) * lerpFactor;
+  }
+
+  // --- DRAWING ---
   const primaryColor = getComputedStyle(document.body)
     .getPropertyValue("--primary-color")
     .trim();
+
   ctx.strokeStyle = primaryColor || "#f0a500";
-  ctx.lineWidth = 2; // Thicker line for better visibility
-  ctx.beginPath(); // Start a new line path
+  ctx.lineWidth = 3;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.beginPath();
 
-  //SETTINGS
-  const visualGain = 3; //Scale factor
+  // Settings
+  const visualGain = 8; // Scale height
 
-  //Draw the Line
-  for (let i = 0; i < buffer.length; i++) {
-    // Apply visual gain
-    let val = buffer[i] * visualGain;
-
-    // Optional: Clamp the value so it doesn't fly off the screen if it gets too loud
-    if (val > 1) val = 1;
-    if (val < -1) val = -1;
+  for (let i = 0; i < displayedBuffer.length; i++) {
+    const val = displayedBuffer[i] * visualGain;
 
     // Map -1..1 to canvas height
+    // (val + 1) / 2 shifts the range to 0..1
     const v = (val + 1) / 2;
-    const y = height - v * height; // Invert Y because canvas 0 is at top
-    const x = (i / buffer.length) * width;
+    const y = height - v * height;
+    const x = (i / displayedBuffer.length) * width;
 
     if (i === 0) {
-      ctx.moveTo(x, y); // Start point
+      ctx.moveTo(x, y);
     } else {
-      ctx.lineTo(x, y); // Connect to next point
+      ctx.lineTo(x, y);
     }
   }
 
-  ctx.stroke(); // Actually draw the line
+  ctx.stroke();
   requestAnimationFrame(drawOscilloscope);
 }
 
