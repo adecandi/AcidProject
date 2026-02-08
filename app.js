@@ -208,12 +208,23 @@ function generateRandomSequence(length) {
 
       //add octave jumps for acid style (20% chance)
       if (Math.random() > 0.8 && sequenceScale.length > 12) {
-        //if index of an octave shift is too large, take the index of the highest allowed note
-        const octaveIndex = Math.min(
-          sequenceScale.length - 1,
-          sequenceScale.indexOf(randomNote) + 12,
-        );
-        randomNote = sequenceScale[octaveIndex]; // redefine randomNote to be one octave higher
+        // //if index of an octave shift is too large, take the index of the highest allowed note
+        // const octaveIndex = Math.min(
+        //   sequenceScale.length - 1,
+        //   sequenceScale.indexOf(randomNote) + 12,
+        // );
+        // randomNote = sequenceScale[octaveIndex]; // redefine randomNote to be one octave higher
+
+        const currentIndex = sequenceScale.indexOf(randomNote);
+
+        // In a diatonic scale array (7 notes per octave), +7 is one octave up.
+        // (The original +12 was jumping nearly 2 octaves).
+        const jumpIndex = currentIndex + 7;
+
+        // Only apply the jump if it stays within the user's selected Octave Range (maxIndex)
+        if (jumpIndex < maxIndex && jumpIndex < sequenceScale.length) {
+          randomNote = sequenceScale[jumpIndex];
+        }
       }
 
       //Random velocity: 20% chance of high velocity (1), else normal velocity (0.7)
@@ -240,7 +251,7 @@ function generateRandomSequence(length) {
     //   }
   } else if (genre === "trance") {
     //TRANCE
-    let baseIndex = 14;
+    let baseIndex = 7; //starting note index in scale (0 will start in octave 2 allowing -2 octave shifts with consonance)
 
     // Safety check: if scale is too small, drop down an octave
     if (baseIndex + 10 >= sequenceScale.length) baseIndex = 7;
@@ -331,8 +342,15 @@ function renderSequence() {
         stepButton.classList.remove("active");
         label.innerText = "-";
       } else {
+        // const randomNote =
+        //   sequenceScale[Math.floor(Math.random() * sequenceScale.length)];
+        const octaveRange = parseInt(
+          document.getElementById("octaveRange").value,
+        );
+        const maxIndex = octaveRange * 7;
+        const randomIndex = Math.floor(Math.random() * maxIndex);
         const randomNote =
-          sequenceScale[Math.floor(Math.random() * sequenceScale.length)];
+          sequenceScale[Math.min(randomIndex, sequenceScale.length - 1)];
         if (stepButton.dataset.prevNote) {
           step.note = stepButton.dataset.prevNote;
         } else {
@@ -437,6 +455,26 @@ const seq = new Tone.Sequence(
   [...Array(length).keys()],
   "16n",
 );
+
+function toggleOctaveControl() {
+  const genre = document.getElementById("genreSelect").value;
+  const octaveContainer = document.getElementById("octaveDisplayControl");
+
+  if (genre === "trance") {
+    octaveContainer.style.display = "none";
+  } else {
+    // 'inline' keeps it on the same line as the other controls
+    octaveContainer.style.display = "inline";
+  }
+}
+
+// Add listener to genre select
+document
+  .getElementById("genreSelect")
+  .addEventListener("change", toggleOctaveControl);
+
+// Run once on load to set initial state
+toggleOctaveControl();
 
 function updateSynthSettings(id, value) {
   const element = document.getElementById(id);
