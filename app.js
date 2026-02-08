@@ -486,9 +486,16 @@ function applyGenreSettings(genre) {
 document.getElementById("generateButton").addEventListener("click", () => {
   const genre = document.getElementById("genreSelect").value;
   acidSequence = generateRandomSequence(length);
-  applyGenreSettings(genre);
+  //applyGenreSettings(genre);
   renderSequence();
   console.log("New Pattern: ", acidSequence);
+});
+
+//reset synth settings for selected genre
+document.getElementById("resetSynthButton").addEventListener("click", () => {
+  const genre = document.getElementById("genreSelect").value;
+  applyGenreSettings(genre);
+  console.log("Synth Settings Reset to " + genre + " defaults");
 });
 
 //Save info to variable for Firebase

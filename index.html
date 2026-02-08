@@ -39,11 +39,15 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Stink <span class="smiley">&#9787;</span></h1>
+    <h1>
+      <span class="smiley">&#9787;</span> STINK
+      <span class="smiley">&#9787;</span>
+    </h1>
     <div class="controls">
       <button id="playButton">Play</button>
       <button id="stopButton">Stop</button>
       <button id="generateButton">Generate</button>
+      <button id="resetSynthButton">Reset Synth</button>
       <button id="SaveButton">Save Pattern</button>
       <button id="ExportButton">Export MIDI</button>
       <select id="loadSequenceSelect">
@@ -247,7 +251,7 @@
       </div>
     </div>
 
-    <div class="effects grid">
+    <div class="effects-grid">
       <div class="Waveshaper controls">
         <h2>Waveshaper</h2>
         <label>Amount</label>
