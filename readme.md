@@ -17,7 +17,7 @@ The project was heavily inspired by Iftah's Sting max for live sequencer. Taking
   - Click to toggle steps on oroff.
   - Click-and-drag functionality on note labels to manually adjust pitch of each step.
 - **Effects Chain:** Effects chain includes Chebyshev Waveshaping, Distortion, Feedback Delay, and Reverb.
-- **Real-time Visualization:** An HTML5 Canvas oscilloscope that visualizes the audio output waveform.
+- **Real-time Visualization:** An Oscilloscope that visualizes the audio output waveform.
 - **User Playability:** Use a computer keyboard to transpose the playing sequence in real-time (powered by AudioKeys).
 - **Cloud database:** Integration with Google Firebase to save and load user created sequences.
 
@@ -79,10 +79,10 @@ To run this project locally, follow these steps:
 ### Generation Settings
 
 - **Style:**
-  - _Acid:_ Generates patterns with octave jumps, velocity accents, and variable note density.
-  - _Trance:_ Generates arpeggiated patterns relying heavily on 7th and 9th chord intervals.
+  - _Acid:_ Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer.
+  - _Trance:_ Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval.
 - **Key & Scale:** Determines the range of notes available for the generator.
-- **Octave Shift:** Transposes the entire sequence up or down by octaves.
+- **Octave Shift:** Transposes the entire sequence up or down by octaves. Only available for Acid line generation.
 
 ### The Synthesizer
 
@@ -98,7 +98,7 @@ The synthesis engine is modeled after subtractive hardware synths.
 
 The bottom section displays the 16 steps of the sequence.
 
-- **Toggle Step:** Click the step buttonto mute or unmute a step.
+- **Toggle Step:** Click the step button to mute or unmute a step.
 - **Change Note:** Click and drag up/down on the **note text label** below a step to change its pitch chromatically.
 - **Live Transposition:** While the sequence is playing, typing on your computer keyboard (rows A-L) will transpose the sequence relative to the root note.
 

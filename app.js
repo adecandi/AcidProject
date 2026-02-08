@@ -767,7 +767,7 @@ function drawOscilloscope() {
   }
 
   ctx.stroke();
-  requestAnimationFrame(drawOscilloscope);
+  requestAnimationFrame(drawOscilloscope); //syncs to browser refresh rate for smooth animation
 }
 
 // Start animation
