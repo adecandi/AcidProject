@@ -79,20 +79,20 @@ To run this project locally, follow these steps:
 ### Generation Settings
 
 - **Style:**
-  - _Acid:_ Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer.
-  - _Trance:_ Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval.
+  - _Acid:_ Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer. The notes are picked with math.random, and there is a 20% chance of an octave jump or a 30% chance of a rest.
+  - _Trance:_ Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval. Notes are therefore less random, but there is still a probability of a note change for the 2nd and 3rd beats, and occasional rests on the 2nd and 3rd beats.
 - **Key & Scale:** Determines the range of notes available for the generator.
 - **Octave Shift:** Transposes the entire sequence up or down by octaves. Only available for Acid line generation.
 
 ### The Synthesizer
 
-The synthesis engine is modeled after subtractive hardware synths.
+Simple subtractive monosynth to monitor the generated sequence.
 
-- **Waveform:** Toggle between Sawtooth (aggressive, buzzy) and Square (hollow, woody).
+- **Waveform:** Inspired by the TB303, choose between a square or sawtooth wave.
 - **Cutoff:** Controls the frequency of the low-pass filter.
 - **Res (Resonance):** Emphasizes the frequencies around the cutoff point.
-- **Env (Envelope Mod):** Determines how much the filter envelope affects the cutoff frequency.
-- **Glide:** Adds a portamento effect between overlapping notes.
+- **Env (Filter Envelope Mod):** Determines how much the filter envelope affects the cutoff frequency.
+- **Glide:** Adds a portamento effect between notes.
 
 ### The Sequencer Interface
 
@@ -113,5 +113,3 @@ The audio signal path is constructed as follows:
     - Feedback Delay (synchronized to BPM).
 3.  **Send Effects:** A high-passed Reverb for spatial depth.
 4.  **Master:** Output to destination and analysis node for the oscilloscope.
-
-The sequencer uses a probabilistic approach. In "Acid" mode, the generator iterates through the 16 steps, assigning notes from the selected scale with a 20% probability of octave jumping and a 30% probability of resting, ensuring that no two generated lines are exactly the same.
