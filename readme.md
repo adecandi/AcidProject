@@ -37,7 +37,7 @@ To run this project locally, follow these steps:
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/yourusername/acid-line-generator.git](https://github.com/yourusername/acid-line-generator.git)
+    git clone https://github.com/adecandi/AcidProject.git
     ```
 
 2.  **Firebase Configuration:**
