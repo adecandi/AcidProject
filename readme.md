@@ -24,7 +24,7 @@ The project was heavily inspired by Iftah's Sting max for live sequencer. Taking
 ## Technology Stack
 
 - **HTML5/CSS3:** Frontend structure and styling, utilizing CSS variables and Flexbox/Grid for layout.
-- **JavaScript (ES6):** Core application logic.
+- **JavaScript :** Core/backend application logic.
 - **Tone.js:** Web Audio API framework used for synthesis, timing, and scheduling.
 - **Firebase:** Firestore database used for storing pattern data.
 - **@tonejs/midi:** Library used for encoding MIDI files for export.
@@ -41,7 +41,10 @@ To run this project locally, follow these steps:
     ```
 
 2.  **Firebase Configuration:**
-    This project requires a `config.js` file to connect to Firebase, which is not included in the repository for security reasons.
+    This project requires a Firebase cloud database and a `config.js` file to connect to Firebase, which is not included in the repository for security reasons.
+    - Go to https://console.firebase.google.com/ and create a new project.
+    - After going through the initial steps, select "add app" and select a web app.
+    - The neccessary firebaseConfig will then be presented in Firebase, simply copy this verbatim and have it ready to be pasted in `config.js` as shown below.
     - Create a file named `config.js` in the root directory.
     - Add your Firebase configuration object (variable must be named `firebaseConfig`):
 
@@ -50,7 +53,7 @@ To run this project locally, follow these steps:
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT.firebaseapp.com",
       projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
+      storageBucket: "YOUR_PROJECT.firebasestorage.app",
       messagingSenderId: "SENDER_ID",
       appId: "APP_ID",
     };
