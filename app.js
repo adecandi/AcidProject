@@ -34,7 +34,7 @@ const feedbackDelay = new Tone.FeedbackDelay({
 const cheby = new Tone.Chebyshev(1);
 const dist = new Tone.Distortion(0);
 const masterBus = new Tone.Gain(1).toDestination();
-const waveform = new Tone.Waveform(512);
+const waveform = new Tone.Waveform(512); //sample the audio at 512 fps
 
 masterBus.connect(waveform);
 acidSynth.chain(cheby, dist, feedbackDelay, masterBus);

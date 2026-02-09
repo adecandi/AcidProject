@@ -1,4 +1,4 @@
-# STINK Acid Line Generator
+# STINK Acid and Trance Line Generator
 
 ## Project Overview
 
