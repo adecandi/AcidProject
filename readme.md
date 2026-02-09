@@ -107,9 +107,9 @@ The bottom section displays the 16 steps of the sequence.
 The audio signal path is constructed as follows:
 
 1.  **Source:** `Tone.MonoSynth` with variable oscillator type.
-2.  **Insert Effects:**
-    - Chebyshev Waveshaper (adds odd harmonics).
-    - Distortion (hard clipping).
-    - Feedback Delay (synchronized to BPM).
-3.  **Send Effects:** A high-passed Reverb for spatial depth.
-4.  **Master:** Output to destination and analysis node for the oscilloscope.
+2.  **Effects:**
+    - Chebyshev Waveshaper.
+    - Distortion.
+    - Synched Delay.
+    - Reverb (in Parallel).
+3.  **Master:** Output to destination and analysis node for the oscilloscope.
