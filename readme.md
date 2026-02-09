@@ -44,7 +44,7 @@ To run this project locally, follow these steps:
     This project requires a Firebase cloud database and a `config.js` file to connect to Firebase, which is not included in the repository for security reasons.
     - Go to https://console.firebase.google.com/ and create a new project.
     - After going through the initial steps, select "add app" and select a web app.
-    - The neccessary firebaseConfig will then be presented in Firebase, simply copy only the JSON variable starting with "const firebaseConfig = ..." and have it ready to be pasted in `config.js` as shown below.
+    - The neccessary firebaseConfig will then be presented in Firebase, simply copy only the JSON variable starting with "const firebaseConfig = ..." and have it ready to be pasted in `config.js` as shown below. Protect this to avoid abuse of your database.
     - Create a file named `config.js` in the root directory.
     - Add your Firebase configuration object only (variable must be named `firebaseConfig`):
 
@@ -60,6 +60,8 @@ To run this project locally, follow these steps:
     ```
 
     - do not copy the other variables or the project won't load correctly. Open a terminal in the working directy and run "npm install firebase"
+    - next in your Firebase project console, select Build -> Firestore Database -> Create Database -> Standard -> Test mode -> Create.
+    - Your database is now ready to receive saved sequences and recall them. Refresh the webpage after saving a sequence to recall it.
 
 3.  **Running the Server:**
     Using Node.js/http-server:
