@@ -106,7 +106,7 @@ The bottom section displays the 16 steps of the sequence.
 
 Audio Signal Path:
 
-1.  **Source:** `Tone.MonoSynth` with variable oscillator type.
+1.  **Sound Source:** `Tone.MonoSynth` with square or sawtooth wave oscillators.
 2.  **Effects:**
     - Chebyshev Waveshaper.
     - Distortion.
