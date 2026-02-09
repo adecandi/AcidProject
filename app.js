@@ -319,7 +319,8 @@ function renderSequence() {
   seqContainer.innerHTML = "";
 
   acidSequence.forEach((step, index) => {
-    //wrapper for step button and note label
+    //create wrapper for step button and note label
+    //creates div dynamically for steps in the sequence
     const wrapper = document.createElement("div");
     wrapper.classList.add("step-wrapper");
 
@@ -330,11 +331,13 @@ function renderSequence() {
       stepButton.classList.add("active");
     }
 
-    //Note label
+    //Initialize note label as blank
     const label = document.createElement("div");
     label.classList.add("note-label");
     label.textContent = step.note || "-";
 
+    //if there is note data, label the step with the note name
+    //handle click to toggle step on/off and assign random note from scale if activating a step
     stepButton.addEventListener("click", () => {
       if (step.note) {
         stepButton.dataset.prevNote = step.note; //Store current note for potential restoration
@@ -468,20 +471,20 @@ function toggleOctaveControl() {
   }
 }
 
-// Add listener to genre select
+//Add listener to genre select
 document
   .getElementById("genreSelect")
   .addEventListener("change", toggleOctaveControl);
 
-// Run once on load to set initial state
+//Run once on load to set initial state
 toggleOctaveControl();
 
 function updateSynthSettings(id, value) {
   const element = document.getElementById(id);
   if (element) {
     element.value = value;
-    element.dispatchEvent(new Event("input")); // Trigger input event to apply change
-    element.dispatchEvent(new Event("change")); // Trigger change event for settings that listen to it
+    element.dispatchEvent(new Event("input")); //Trigger input event to apply change
+    element.dispatchEvent(new Event("change")); //Trigger change event for settings that listen to it
   }
 }
 
@@ -675,7 +678,7 @@ const keys = new AudioKeys({
   priority: "last", //handle keyboard mash :)
 });
 
-// Map MIDI notes (relative to C) to SCALE DEGREES
+// Map MIDI notes (relative to C) to scale degree indexes
 const midiToScaleStep = {
   0: 0, //root
   2: 1, //2nd
