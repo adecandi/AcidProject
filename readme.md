@@ -70,8 +70,10 @@ To run this project locally, follow these steps:
     npx http-server
     ```
 
+    Alternatively use the "Live Preview" extension if using VS Code. In the HTML file, right click and select -> "Show Preview".
+
 4.  **Access the Application:**
-    Navigate to `http://127.0.0.1:8080` (or the port specified by your server) in a modern web browser.
+    Use the 2nd url generated after running npx http-server or the url shown in live preview render of the HTML file to run the synthesizer.
 
 ## Usage Guide
 
