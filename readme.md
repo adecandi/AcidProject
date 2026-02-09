@@ -104,7 +104,7 @@ The bottom section displays the 16 steps of the sequence.
 
 ## 6. Technical Implementation Details
 
-The audio signal path is constructed as follows:
+Audio Signal Path:
 
 1.  **Source:** `Tone.MonoSynth` with variable oscillator type.
 2.  **Effects:**
