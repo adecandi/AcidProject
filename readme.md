@@ -6,7 +6,7 @@ This project is a web-based step sequencer and synthesizer designed to generate 
 
 The core objective of this application is to simulate the workflow of classic hardware bass synthesizers (such as the TB-303) within a browser environment, adding modern conveniences like cloud storage and algorithmic pattern generation.
 
-The project was heavily inspired by Iftah's Sting max for live sequencer. Taking inspiration and wanting to add my personal touch, I added a "trance" generator in addition to the acid line generator.
+The project was heavily inspired by Iftah's Sting max for live sequencer. Taking inspiration and wanting to add my personal touch, I added a "trance" line generator in addition to the acid line generator.
 
 ## Features
 
@@ -78,9 +78,9 @@ To run this project locally, follow these steps:
 
 ### Generation Settings
 
-- **Style:**
-  - _Acid:_ Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer. The notes are picked with math.random, and there is a 20% chance of an octave jump or a 30% chance of a rest.
-  - _Trance:_ Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval. Notes are therefore less random, but there is still a probability of a note change for the 2nd and 3rd beats, and occasional rests on the 2nd and 3rd beats.
+- **Styles:**
+  - Acid:\_ Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer. The notes are picked with math.random, and there is a 20% chance of an octave jump or a 30% chance of a rest.
+  - Trance:\_ Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval. Notes are therefore less random, but there is still a probability of a note change for the 2nd and 3rd beats, and occasional rests on the 2nd and 3rd beats.
 - **Key & Scale:** Determines the range of notes available for the generator.
 - **Octave Shift:** Transposes the entire sequence up or down by octaves. Only available for Acid line generation.
 

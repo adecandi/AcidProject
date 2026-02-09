@@ -257,6 +257,7 @@ input[type="range"]:focus {
 input[type="range"].vertical-fader {
   width: 120px; /* Physical length */
   height: 20px; /* Touch area thickness */
+  /* rotate to be vertical */
   transform: rotate(-90deg);
   cursor: pointer;
 }
