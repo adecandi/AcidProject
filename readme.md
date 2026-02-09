@@ -1,6 +1,6 @@
 # Acid Line Generator
 
-## 1. Project Overview
+## Project Overview
 
 This project is a web-based step sequencer and synthesizer designed to generate electronic music bass and lead lines. Built primarily using the **Tone.js** audio framework, the application allows users to generate random melodic patterns based on musical scales, manipulate synthesis parameters in real-time, and export the results as MIDI files.
 
@@ -8,7 +8,7 @@ The core objective of this application is to simulate the workflow of classic ha
 
 The project was heavily inspired by Iftah's Sting max for live sequencer. Taking inspiration and wanting to add my personal touch, I added a "trance" generator in addition to the acid line generator.
 
-## 2. Features
+## Features
 
 - **Random Sequence Generation:** Algorithms to generate 16-step sequences based on user-defined keys, scales, and genres (Acid and Trance).
 - **Real Time Synthesis for Direct Sequence Monitoring:** A monosynth engine featuring Sawtooth and Square waveforms with a resonant low-pass filter.
@@ -21,7 +21,7 @@ The project was heavily inspired by Iftah's Sting max for live sequencer. Taking
 - **User Playability:** Use a computer keyboard to transpose the playing sequence in real-time (powered by AudioKeys).
 - **Cloud database:** Integration with Google Firebase to save and load user created sequences.
 
-## 3. Technology Stack
+## Technology Stack
 
 - **HTML5/CSS3:** Frontend structure and styling, utilizing CSS variables and Flexbox/Grid for layout.
 - **JavaScript (ES6):** Core application logic.
@@ -30,7 +30,7 @@ The project was heavily inspired by Iftah's Sting max for live sequencer. Taking
 - **@tonejs/midi:** Library used for encoding MIDI files for export.
 - **AudioKeys:** Library used to map computer keyboard input to MIDI notes.
 
-## 4. Installation and Setup
+## Installation and Setup
 
 To run this project locally, follow these steps:
 
@@ -66,7 +66,7 @@ To run this project locally, follow these steps:
 4.  **Access the Application:**
     Navigate to `http://localhost:8000` (or the port specified by your server) in a modern web browser.
 
-## 5. Usage Guide
+## Usage Guide
 
 ### Transport and General Controls
 
@@ -102,7 +102,7 @@ The bottom section displays the 16 steps of the sequence.
 - **Change Note:** Click and drag up/down on the **note text label** below a step to change its pitch chromatically.
 - **Live Transposition:** While the sequence is playing, typing on your computer keyboard (rows A-L) will transpose the sequence relative to the root note.
 
-## 6. Technical Implementation Details
+## Technical Implementation Details
 
 Audio Signal Path:
 
