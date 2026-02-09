@@ -715,20 +715,20 @@ function drawOscilloscope() {
   const width = canvas.width;
   const height = canvas.height;
 
-  // Clear background with a slight trail effect (optional)
-  // Use opacity < 1 to let previous frames fade out slowly
+  //Clear background with a slight trail effect (optional)
+  //Use opacity < 1 to let previous frames fade out slowly
   ctx.fillStyle = "rgba(26, 26, 26, 1)";
   ctx.fillRect(0, 0, width, height);
 
-  // 2. Get the REAL (frantic) audio data
+  //Get the audio data
   const currentBuffer = waveform.getValue();
 
-  // 3. Smoothly morph the displayed buffer towards the current buffer
+  //Smoothly morph the displayed buffer towards the current buffer lerp-linear interpolation
   //    'lerpFactor' controls the speed.
-  //    0.1 = Very slow/lazy (ghostly)
-  //    0.5 = Snappy but smooth
+  //    0.1 = slow
+  //    0.5 = Snappy
   //    0.9 = Almost instant
-  const lerpFactor = 0.15;
+  const lerpFactor = 0.1;
 
   for (let i = 0; i < displayedBuffer.length; i++) {
     // Basic Lerp formula: current + (target - current) * speed
