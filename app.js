@@ -739,7 +739,7 @@ function drawOscilloscope() {
       displayedBuffer[i] + (currentBuffer[i] - displayedBuffer[i]) * lerpFactor;
   }
 
-  // --- DRAWING ---
+  //Drawing the waveform
   const primaryColor = getComputedStyle(document.body)
     .getPropertyValue("--primary-color")
     .trim();
