@@ -10,7 +10,7 @@ The project was heavily inspired by Iftah's Sting max for live sequencer. Taking
 
 ## Features
 
-- **Random Sequence Generation:** Algorithms to generate 16-step sequences based on user-defined keys, scales, and genres (Acid and Trance).
+- **Random Sequence Generation:** Algorithms to generate 16-step sequences based on user-defined keys and genres (Acid and Trance).
 - **Real Time Synthesis for Direct Sequence Monitoring:** A monosynth engine featuring Sawtooth and Square waveforms with a resonant low-pass filter.
 - **Interactive Sequencer:**
   - 16-step visual interface.
