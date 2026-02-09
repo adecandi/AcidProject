@@ -90,8 +90,8 @@ To run this project locally, follow these steps:
 ### Generation Settings
 
 - **Styles:**
-  - Acid:\_ Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer. The notes are picked with math.random, and there is a 20% chance of an octave jump or a 30% chance of a rest.
-  - Trance:\_ Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval. Notes are therefore less random, but there is still a probability of a note change for the 2nd and 3rd beats, and occasional rests on the 2nd and 3rd beats.
+  - Acid: Generates patterns with octave jumps, velocity accents, and variable note density. Loosely based on the Max for Live Sting sequencer. The notes are picked with math.random, and there is a 20% chance of an octave jump or a 30% chance of a rest.
+  - Trance: Generates classic Trance lines by generating stricter 7th chord arpeggiated lines with an occasional 9th or 6th interval. Notes are therefore less random, but there is still a probability of a note change for the 2nd and 3rd beats, and occasional rests on the 2nd and 3rd beats.
 - **Key & Scale:** Determines the range of notes available for the generator.
 - **Octave Shift:** Transposes the entire sequence up or down by octaves. Only available for Acid line generation.
 
