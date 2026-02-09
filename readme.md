@@ -71,7 +71,7 @@ To run this project locally, follow these steps:
     ```
 
 4.  **Access the Application:**
-    Navigate to `http://localhost:8000` (or the port specified by your server) in a modern web browser.
+    Navigate to `http://127.0.0.1:8080` (or the port specified by your server) in a modern web browser.
 
 ## Usage Guide
 
