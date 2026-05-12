@@ -1,7 +1,9 @@
-// Initialize Firebase
+//Initialize Firebase
 //const app = initializeApp(firebaseConfig); //not used yet while working locally
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+
+//uncomment below to enable firebase functionality (requires running with a local server due to module imports, see README for details)
+// firebase.initializeApp(firebaseConfig);
+// const db = firebase.firestore();
 
 //Synthesizer Base
 const acidSynth = new Tone.MonoSynth({
@@ -540,6 +542,8 @@ document.getElementById("resetSynthButton").addEventListener("click", () => {
 });
 
 //Save info to variable for Firebase
+//uncomment to enable firebase functionality (requires running with a local server due to module imports, see README for details)
+/*
 document.getElementById("SaveButton").addEventListener("click", () => {
   const patternData = {
     sequence: acidSequence,
@@ -561,7 +565,7 @@ document.getElementById("SaveButton").addEventListener("click", () => {
       console.error("Error saving pattern:", error);
     });
 });
-
+*/
 //Download Midi logic
 document.getElementById("ExportButton").addEventListener("click", () => {
   const midi = new Midi();
@@ -777,7 +781,8 @@ function drawOscilloscope() {
 drawOscilloscope();
 
 //Load saved sequences from Firebase
-const loadSelect = document.getElementById("loadSequenceSelect");
+//uncomment below to enable firebase functionality (requires running with a local server due to module imports, see README for details)
+/*const loadSelect = document.getElementById("loadSequenceSelect");
 
 //Fetch patterns from Firebase and populate dropdown function
 function fetchSequences() {
@@ -849,3 +854,4 @@ loadSelect.addEventListener("change", (e) => {
 });
 
 fetchSequences();
+*/
